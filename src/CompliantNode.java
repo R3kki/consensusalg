@@ -39,9 +39,9 @@ public class CompliantNode implements Node {
             // new behaviour: return transactions reached upon consensus
             Set<Transaction> proposedTransactions = new HashSet<>();
             int numCompliantNodes = (int) (numFollowees * (1 - p_malicious));
-            for (Transaction tx : candidateTransactions.keySet()){
+            for (Transaction tx : candidateTransactions.keySet()) {
                 if (candidateTransactions.get(tx).size() >= numCompliantNodes)
-                   proposedTransactions.add(tx);
+                    proposedTransactions.add(tx);
             }
             return proposedTransactions;
         }
@@ -51,7 +51,7 @@ public class CompliantNode implements Node {
     // Receive candidates by listening to nodes that this node follows (following/followee)
     // candidate sender is the followee
     public void receiveFromFollowees(Set<Candidate> candidates) {
-        for (Candidate c : candidates){
+        for (Candidate c : candidates) {
             Integer followee = c.sender;
             Transaction tx = c.tx;
             if (!candidateTransactions.containsKey(tx)) candidateTransactions.put(tx, new HashSet<>());
