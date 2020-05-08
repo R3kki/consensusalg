@@ -37,11 +37,13 @@ public class CompliantNode implements Node {
     public Set<Transaction> sendToFollowers() {
         if (++currRound == numRounds) {
             // new behaviour: return transactions reached upon consensus
+            Set<Transaction> proposedTransactions = new HashSet<>();
             int numCompliantNodes = (int) (numFollowees * (1 - p_malicious));
             for (Transaction tx : candidateTransactions.keySet()){
-                if (candidateTransactions.get(tx).size() < numCompliantNodes)
-                    candidateTransactions.remove(tx);
+                if (candidateTransactions.get(tx).size() >= numCompliantNodes)
+                   proposedTransactions.add(tx);
             }
+            return proposedTransactions;
         }
         return candidateTransactions.keySet();
     }
